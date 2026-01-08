@@ -12,7 +12,7 @@ export const quizQuestions: QuizQuestion[] = [
   {
     id: 1,
     title: "You Notice a Problem",
-    scenario: "You keep running into a small but annoying problem in daily life. You think, \"Someone should fix this.\"",
+    scenario: "You keep running into a small but annoying problem in daily life. Someone mentions, \"I'd pay for a solution to that.\"",
     options: [
       { label: "Ignore it and move on", value: 1 },
       { label: "Complain about it to friends", value: 2 },

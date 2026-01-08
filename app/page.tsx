@@ -34,7 +34,7 @@ export default function Home() {
           >
             What Kind of{" "}
             <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Builder
+              Entrepreneur
             </span>{" "}
             Are You?
           </motion.h1>
@@ -108,7 +108,7 @@ export default function Home() {
           className="mt-20 max-w-5xl mx-auto"
         >
           <h2 className="text-2xl md:text-3xl font-bold text-center text-gray-900 mb-10">
-            Which builder type could you be?
+            Which entrepreneur type could you be?
           </h2>
           <div className="grid md:grid-cols-4 gap-4">
             {[
