@@ -11,6 +11,7 @@ export default defineConfig({
   datasource: {
     // For Vercel: uses POSTGRES_PRISMA_URL or DATABASE_URL
     // For local: uses DATABASE_URL from .env (file:./dev.db)
-    url: process.env["POSTGRES_PRISMA_URL"] || process.env["DATABASE_URL"] || "file:./dev.db",
+    // For build time: uses fallback postgresql URL (won't actually connect)
+    url: process.env["POSTGRES_PRISMA_URL"] || process.env["DATABASE_URL"] || process.env["POSTGRES_URL_NON_POOLING"] || "postgresql://user:pass@localhost:5432/db",
   },
 });
