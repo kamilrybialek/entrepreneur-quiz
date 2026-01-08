@@ -1,36 +1,269 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Entrepreneur Quiz - What Kind of Builder Are You?
+
+A beautiful, interactive personality quiz to help people discover their entrepreneurial style. Built with Next.js 14, TypeScript, Framer Motion, and PostgreSQL.
+
+## Features
+
+- 🎯 **8 Scenario-Based Questions** - Playful, relatable scenarios instead of abstract self-assessment
+- ✨ **Smooth Animations** - Micro-interactions and progress feedback with Framer Motion
+- 📊 **4 Personality Types** - Explorer, Builder, Growth Builder, and Creator
+- 🎨 **Beautiful UI** - Gradient backgrounds, rounded corners, and modern design
+- 📱 **Fully Responsive** - Works perfectly on mobile and desktop
+- 💾 **Data Collection** - Saves responses to PostgreSQL database
+- 📈 **Admin Dashboard** - View stats, export data to CSV
+- 🔗 **Shareable Results** - Users can share their builder type on social media
+- 🎉 **Motivational Messaging** - Confidence boost messages and encouraging copy
+
+## Tech Stack
+
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **Animations:** Framer Motion
+- **Database:** PostgreSQL with Prisma ORM
+- **Icons:** Lucide React
+- **Deployment:** Vercel
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+ installed
+- PostgreSQL database (or use Vercel Postgres)
+- npm or yarn
+
+### Installation
+
+1. **Clone the repository**
+
+```bash
+git clone https://github.com/yourusername/entrepreneur-quiz.git
+cd entrepreneur-quiz
+```
+
+2. **Install dependencies**
+
+```bash
+npm install
+```
+
+3. **Set up environment variables**
+
+Create a `.env` file in the root directory:
+
+```env
+DATABASE_URL="postgresql://username:password@localhost:5432/entrepreneur_quiz?schema=public"
+ADMIN_PASSWORD="your-secure-password"
+```
+
+4. **Set up the database**
+
+```bash
+npx prisma generate
+npx prisma db push
+```
+
+5. **Run the development server**
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+entrepreneur-quiz/
+├── app/
+│   ├── page.tsx              # Landing page
+│   ├── quiz/
+│   │   └── page.tsx          # Quiz page with questions
+│   ├── results/
+│   │   └── page.tsx          # Results page
+│   ├── admin/
+│   │   └── page.tsx          # Admin dashboard
+│   └── api/
+│       └── responses/
+│           └── route.ts      # API for saving/fetching responses
+├── components/               # Reusable components (if any)
+├── lib/
+│   ├── utils.ts             # Utility functions
+│   ├── prisma.ts            # Prisma client
+│   └── quiz-data.ts         # Quiz questions and scoring logic
+├── prisma/
+│   └── schema.prisma        # Database schema
+└── public/                  # Static assets
+```
 
-## Learn More
+## Quiz Flow
 
-To learn more about Next.js, take a look at the following resources:
+1. **Landing Page** - Hero section with call-to-action
+2. **User Info Collection** - Name, email, age range
+3. **Quiz (8 Questions)** - Scenario-based questions with animations
+4. **Confidence Boost** - Motivational message after question 4
+5. **Results** - Personalized results with type, level, strengths, and next steps
+6. **Share** - Option to share results or retake quiz
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Admin Dashboard
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Access the admin dashboard at `/admin`:
 
-## Deploy on Vercel
+- **Default Password:** Set via `ADMIN_PASSWORD` environment variable
+- **Features:**
+  - View total responses
+  - See average level and type distribution
+  - Age range demographics
+  - Export all data to CSV
+  - View detailed table of all responses
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deploying to Vercel
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Step 1: Push to GitHub
+
+```bash
+git add .
+git commit -m "Initial commit - Entrepreneur Quiz"
+git branch -M main
+git remote add origin https://github.com/yourusername/entrepreneur-quiz.git
+git push -u origin main
+```
+
+### Step 2: Deploy on Vercel
+
+1. Go to [vercel.com](https://vercel.com)
+2. Click "Add New Project"
+3. Import your GitHub repository
+4. Configure environment variables:
+   - `DATABASE_URL` - Your PostgreSQL connection string (use Vercel Postgres for easy setup)
+   - `ADMIN_PASSWORD` - Your admin panel password
+5. Click "Deploy"
+
+### Step 3: Set up Database
+
+**Option A: Use Vercel Postgres (Recommended)**
+
+1. In your Vercel project, go to Storage tab
+2. Create a new Postgres database
+3. Copy the connection string to `DATABASE_URL`
+4. Run migrations:
+
+```bash
+npx prisma db push
+```
+
+**Option B: Use your own PostgreSQL database**
+
+1. Set `DATABASE_URL` in Vercel environment variables
+2. Run migrations from your local machine
+
+### Step 4: Test Your Deployment
+
+1. Visit your Vercel URL
+2. Complete a quiz to test data collection
+3. Visit `/admin` to verify admin panel works
+
+## Environment Variables
+
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `DATABASE_URL` | PostgreSQL connection string | Yes |
+| `ADMIN_PASSWORD` | Password for admin dashboard | Yes |
+
+## Customization
+
+### Changing Quiz Questions
+
+Edit `lib/quiz-data.ts`:
+
+```typescript
+export const quizQuestions: QuizQuestion[] = [
+  {
+    id: 1,
+    title: "Your Question Title",
+    scenario: "Your scenario description...",
+    options: [
+      { label: "Option A", value: 1 },
+      { label: "Option B", value: 2 },
+      { label: "Option C", value: 3 },
+      { label: "Option D", value: 4 },
+    ],
+  },
+  // Add more questions...
+]
+```
+
+### Changing Entrepreneur Types
+
+Edit the `entrepreneurTypes` array in `lib/quiz-data.ts`:
+
+```typescript
+export const entrepreneurTypes: EntrepreneurType[] = [
+  {
+    name: "Your Type",
+    emoji: "🌟",
+    range: [1, 3], // Score range
+    description: "Your description...",
+    strengths: ["Strength 1", "Strength 2"],
+    focusArea: "What to focus on...",
+    nextStep: "Next actionable step...",
+    color: "from-blue-400 to-cyan-500", // Tailwind gradient
+  },
+]
+```
+
+## Database Schema
+
+```prisma
+model QuizResponse {
+  id         String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+  name       String
+  email      String
+  ageRange   String
+  answers    Json
+  totalScore Int
+  level      Float
+  type       String
+}
+```
+
+## API Endpoints
+
+### POST `/api/responses`
+
+Save a quiz response
+
+**Body:**
+```json
+{
+  "name": "John Doe",
+  "email": "john@example.com",
+  "ageRange": "25-34",
+  "answers": [3, 4, 2, 3, 4, 3, 3, 4],
+  "totalScore": 26,
+  "level": 7.5,
+  "type": "Growth Builder"
+}
+```
+
+### GET `/api/responses`
+
+Get all responses (requires authentication)
+
+**Headers:**
+```
+Authorization: Bearer YOUR_ADMIN_PASSWORD
+```
+
+## License
+
+MIT
+
+## Contributing
+
+Contributions are welcome! Please open an issue or submit a pull request.
+
+---
+
+Built with ❤️ using Next.js and TypeScript

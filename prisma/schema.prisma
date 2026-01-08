@@ -1,0 +1,32 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model QuizResponse {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // User info
+  name      String
+  email     String
+  ageRange  String
+
+  // Quiz data
+  answers   Json     // Array of 8 answers (1-4 for each question)
+  totalScore Int     // 8-32
+  level      Float   // 1-10
+  type      String   // Explorer, Builder, Growth Builder, Creator
+
+  @@index([createdAt])
+  @@index([type])
+}
